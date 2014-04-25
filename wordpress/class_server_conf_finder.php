@@ -40,7 +40,7 @@ class Server_Conf_Finder {
         if (file_exists($config_file)) {
             $this->conf_file = $config_file;
         } else {
-           $this->conf_file = self::DEAFULT_CFG; 
+           $this->conf_file = self::DEFAULT_CFG; 
         }
         return($this->conf_file);
     }
