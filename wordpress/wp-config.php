@@ -130,10 +130,6 @@ define('CONCATENATE_SCRIPTS', false);
 if ( !defined('ABSPATH') )
     define('ABSPATH', dirname(__FILE__) . '/');
 
-//Changes for AD Problem - wilson_cursino@rd.com
-//Load log function class
-require_once(ABSPATH.'/wp-content/themes/readersdigest/lib/functions/logClass.php');
-
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
 
