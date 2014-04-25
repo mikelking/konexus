@@ -1,7 +1,9 @@
 <?php
 
+define( 'WP_AUTO_UPDATE_CORE', false );
+
 require('class_server_conf_finder.php');
-$scf = new ServerConfFinder();
+$scf = new Server_Conf_Finder();
 
 /**
  * For developers: WordPress debugging mode.

@@ -49,7 +49,7 @@ class Server_Config {
     }
     
     public function set_db_credentials() {
-        $this->password = '';
+        $this->password = 'P0pc0rn%461';
         $this->db = 'konexusdb';
         $this->user = 'konexus_adm';
         $this->host = '127.0.0.1';

@@ -40,7 +40,7 @@ class Server_Conf_Finder {
         if (file_exists($config_file)) {
             $this->conf_file = $config_file;
         } else {
-           $this->conf_file = null; 
+           $this->conf_file = self::DEAFULT_CFG; 
         }
         return($this->conf_file);
     }
@@ -48,7 +48,7 @@ class Server_Conf_Finder {
     public function get_config() {
         if ($this->get_conf_file()) {
             require($this->get_conf_file());
-            $this->server_cfg = new ServerConfig();
+            $this->server_cfg = new Server_Config();
         } else {
             error_log ( 'Config file ' . $this->get_conf_file() . ' NOT found on ' . $this->get_server_name() . 
 '. Fatal failure to require it.', 0 );
