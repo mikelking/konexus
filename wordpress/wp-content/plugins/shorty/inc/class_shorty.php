@@ -8,11 +8,12 @@ class Shorty {
     const API_URL      = 'http://api.bitly.com/v3/shorten';
     const API_SSL_URL  = 'https://api-ssl.bitly.com/v3/shorten';
     const CACHE_KEY    = 'bitly_url_';
-    const API_KEY      = '';
-    const API_USERNAME = '';
+
     const REQUEST_FMT  = "%s?login=%s&apiKey=%s&longUrl=%s&format=json";
     
     private $payload;
+    private $api_key;
+    private $api_username;
     
     public $target_encoded_url;
     public $api_request;
@@ -22,25 +23,21 @@ class Shorty {
 
 
     public function __construct() {
-    
+        // simulated wp_options... ;-S
         if (defined('API_KEY')) {
-            print("<!-- API_KEY\n" . PHP_EOL);
-            print(API_KEY);
-            print("\n-->\n" . PHP_EOL);
+            $this->api_key = API_KEY;
         }
 
         if (defined('API_USERNAME')) {
-            print("<!-- API_USERNAME\n" . PHP_EOL);
-            print(API_USERNAME);
-            print("\n-->\n" . PHP_EOL);
+            $this->api_username = API_USERNAME;
         }
         
         $this->http = new WP_Http;
         
         $this->payload = array(
             'api_username' => self::API_USERNAME,
-            'api_key' => defined('API_KEY') ? API_KEY: self::API_KEY,
-            'api_url' => defined('API_USERNAME') ? API_USERNAME: self::API_URL,
+            'api_key' => $this->api_key,
+            'api_url' => $this->api_username,
             'api_ssl' => self::API_SSL_URL,
             'cache_key' => self::CACHE_KEY
         );
