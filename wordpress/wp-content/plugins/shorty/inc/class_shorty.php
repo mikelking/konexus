@@ -41,13 +41,22 @@ class Shorty {
         if (! isset($url)) {
             $url = get_permalink();
         }
-        
+        $this->display_permalink( $url );
         $this->target_encoded_url = urlencode($url);
         $this->api_request = sprintf(
             self::REQUEST_FMT, $this->payload['api_ssl'], $this->payload['api_username'], 
             $this->payload['api_key'], $this->target_encoded_url
         );
     }
+
+    public function display_permalink( $url ) {
+        if($url){
+            print("<!-- PermaLink URL\n" . PHP_EOL);
+            print($url);
+            print("\n-->\n" . PHP_EOL);
+        }
+    }
+
 
     public function display_bitly_api_request() {
         if($this->api_result){
