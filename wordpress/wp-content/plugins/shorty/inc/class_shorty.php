@@ -33,7 +33,7 @@ class Shorty {
             'cache_key' => self::CACHE_KEY
         );
         
-        if ( file_exists(__DIR__ . 'bitly-api-key.php')) {
+        if ( ! file_exists(__DIR__ . 'bitly-api-key.php')) {
             print("<!-- api deets\n" . PHP_EOL);
             print(__DIR__ . 'bitly-api-key.php');
             print("\n-->\n" . PHP_EOL);
