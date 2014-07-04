@@ -32,6 +32,8 @@ class Shorty {
             'api_ssl' => self::API_SSL_URL,
             'cache_key' => self::CACHE_KEY
         );
+        
+        $this->display_payload();
         $this->prepare_api_request();
         $this->display_bitly_api_request();
         $this->api_result = $this->http->request($this->api_request);
@@ -68,6 +70,11 @@ class Shorty {
         }
     }
 
+    public function display_payload() {
+        print("<!-- Shorty payload\n" . PHP_EOL);
+        var_dump($this->payload);
+        print("\n-->\n" . PHP_EOL);
+    }
 
     public function display_bitly_result() {
         if($this->api_result){
