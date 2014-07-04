@@ -1,7 +1,7 @@
 <?php
 
-if ( file_exists('bitly-api-key.php')) {
-    require('bitly-api-key.php');
+if ( file_exists(__DIR__ . 'bitly-api-key.php')) {
+    require(__DIR__ . 'bitly-api-key.php');
 }
 
 class Shorty {
@@ -32,6 +32,12 @@ class Shorty {
             'api_ssl' => self::API_SSL_URL,
             'cache_key' => self::CACHE_KEY
         );
+        
+        if ( file_exists(__DIR__ . 'bitly-api-key.php')) {
+            print("<!-- api deets\n" . PHP_EOL);
+            print(__DIR__ . 'bitly-api-key.php');
+            print("\n-->\n" . PHP_EOL);
+        }
         
         $this->display_payload();
         $this->prepare_api_request();
