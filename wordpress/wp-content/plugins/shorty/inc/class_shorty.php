@@ -23,7 +23,7 @@ class Shorty {
 
 
     public function __construct() {
-        // simulated wp_options... ;-S
+        //
         if (defined('API_KEY')) {
             $this->api_key = API_KEY;
         }
@@ -35,11 +35,11 @@ class Shorty {
         $this->http = new WP_Http;
         
         $this->payload = array(
-            'api_username' => self::API_USERNAME,
-            'api_key' => $this->api_key,
-            'api_url' => $this->api_username,
-            'api_ssl' => self::API_SSL_URL,
-            'cache_key' => self::CACHE_KEY
+            'api_username' => $this->api_username,
+            'api_key'      => $this->api_key,
+            'api_url'      => self::API_SSL_URL,
+            'api_ssl'      => self::API_SSL_URL,
+            'cache_key'    => self::CACHE_KEY
         );
         
         if ( file_exists(__DIR__ . '/bitly-api-key.php')) {
