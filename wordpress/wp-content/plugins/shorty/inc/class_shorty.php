@@ -23,6 +23,18 @@ class Shorty {
 
     public function __construct() {
     
+        if (defined('API_KEY')) {
+            print("<!-- API_KEY\n" . PHP_EOL);
+            print(API_KEY);
+            print("\n-->\n" . PHP_EOL);
+        }
+
+        if (defined('API_USERNAME')) {
+            print("<!-- API_USERNAME\n" . PHP_EOL);
+            print(API_USERNAME);
+            print("\n-->\n" . PHP_EOL);
+        }
+        
         $this->http = new WP_Http;
         
         $this->payload = array(
