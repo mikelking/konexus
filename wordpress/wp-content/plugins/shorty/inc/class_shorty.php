@@ -1,12 +1,16 @@
 <?php
 
+if ( file_exists('bitly-api-key.php')) {
+    require('bitly-api-key.php');
+}
+
 class Shorty {
-    const API_URL = 'http://api.bitly.com/v3/shorten';
-    const API_SSL_URL = 'https://api-ssl.bitly.com/v3/shorten';
-    const CACHE_KEY = 'bitly_url_';
-    const API_KEY = 'R_d2b85fab1aeb10b35b4ff15639707238';
-    const API_USERNAME = 'mikelking';
-    const REQUEST_FMT = "%s?login=%s&apiKey=%s&longUrl=%s&format=json";
+    const API_URL      = 'http://api.bitly.com/v3/shorten';
+    const API_SSL_URL  = 'https://api-ssl.bitly.com/v3/shorten';
+    const CACHE_KEY    = 'bitly_url_';
+    const API_KEY      = '';
+    const API_USERNAME = '';
+    const REQUEST_FMT  = "%s?login=%s&apiKey=%s&longUrl=%s&format=json";
     
     private $shorty_config;
     
@@ -19,8 +23,8 @@ class Shorty {
     public function __construct() {
         $this->shorty_config = array(
             'api_username' => self::API_USERNAME,
-            'api_key' => self::API_KEY,
-            'api_url' => self::API_URL,
+            'api_key' => (defined('API_KEY')) ? API_KEY: self::API_KEY,
+            'api_url' => (defined('API_USERNAME')) ? API_USERNAME: self::API_URL,
             'api_ssl' => self::API_SSL_URL,
             'cache_key' => self::CACHE_KEY
         );
