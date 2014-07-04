@@ -37,7 +37,7 @@ class Shorty {
         $this->payload = array(
             'api_username' => $this->api_username,
             'api_key'      => $this->api_key,
-            'api_url'      => self::API_SSL_URL,
+            'api_url'      => self::API_URL,
             'api_ssl'      => self::API_SSL_URL,
             'cache_key'    => self::CACHE_KEY
         );
@@ -65,7 +65,7 @@ class Shorty {
         $this->display_permalink( $url );
         $this->target_encoded_url = urlencode($url);
         $this->api_request = sprintf(
-            self::REQUEST_FMT, self::API_SSL_URL, $this->api_username,, 
+            self::REQUEST_FMT, self::API_SSL_URL, $this->api_username, 
             $this->api_key, $this->target_encoded_url
         );
     }
