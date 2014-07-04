@@ -69,11 +69,9 @@ class Shorty {
 
 
     public function display_bitly_api_request() {
-        if ($this->api_result) {
-            print("<!-- Bitly API\n" . PHP_EOL);
+            print("<!-- Bitly API request\n" . PHP_EOL);
             print($this->api_request);
             print("\n-->\n" . PHP_EOL);
-        }
     }
 
     public function display_payload() {
