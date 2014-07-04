@@ -27,13 +27,13 @@ class Shorty {
         
         $this->payload = array(
             'api_username' => self::API_USERNAME,
-            'api_key' => (defined('API_KEY')) ? API_KEY: self::API_KEY,
-            'api_url' => (defined('API_USERNAME')) ? API_USERNAME: self::API_URL,
+            'api_key' => defined('API_KEY') ? API_KEY: self::API_KEY,
+            'api_url' => defined('API_USERNAME') ? API_USERNAME: self::API_URL,
             'api_ssl' => self::API_SSL_URL,
             'cache_key' => self::CACHE_KEY
         );
         
-        if ( ! file_exists(__DIR__ . '/bitly-api-key.php')) {
+        if ( file_exists(__DIR__ . '/bitly-api-key.php')) {
             print("<!-- api deets\n" . PHP_EOL);
             print(__DIR__ . '/bitly-api-key.php');
             print("\n-->\n" . PHP_EOL);
