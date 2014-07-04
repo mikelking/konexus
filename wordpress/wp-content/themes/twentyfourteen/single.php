@@ -41,9 +41,11 @@ get_sidebar();
 if (class_exists('Shorty')) {
     $s = new Shorty;
     $url = get_permalink($post->ID);
+/*
     print("<!-- Post Permalink\n" . PHP_EOL);
     print($url);
     print("\n-->\n" . PHP_EOL);
+*/
 /*
     $s->prepare_api_request($url);
     $s->display_bitly_api_request();

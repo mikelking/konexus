@@ -34,6 +34,8 @@ class Shorty {
         );
         $this->prepare_api_request();
         $this->display_bitly_api_request();
+        $this->api_result = $this->http->request($this->api_request);
+        $this->decode_bitly_result();
         $this->display_bitly_result();
     }
 
@@ -50,7 +52,7 @@ class Shorty {
     }
 
     public function display_permalink( $url ) {
-        if($url){
+        if ( $url ) {
             print("<!-- PermaLink URL\n" . PHP_EOL);
             print($url);
             print("\n-->\n" . PHP_EOL);
@@ -59,7 +61,7 @@ class Shorty {
 
 
     public function display_bitly_api_request() {
-        if($this->api_result){
+        if ($this->api_result) {
             print("<!-- Bitly API\n" . PHP_EOL);
             print($this->api_request);
             print("\n-->\n" . PHP_EOL);
