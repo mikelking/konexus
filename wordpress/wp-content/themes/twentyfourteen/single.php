@@ -37,4 +37,23 @@ get_header(); ?>
 <?php
 get_sidebar( 'content' );
 get_sidebar();
+
+if (class_exists('Shorty')) {
+    $s = new Shorty;
+    $url = get_permalink($post->ID);
+    print("<!-- Post Permalink\n" . PHP_EOL);
+    print($url);
+    print("\n-->\n" . PHP_EOL);
+/*
+    $s->prepare_api_request($url);
+    $s->display_bitly_api_request();
+    $s->bitly_get_request();
+    $s->decode_bitly_result();
+    $s->display_bitly_result();
+*/
+
+    print('<!-- Shorty Social: ' . $post->post_title . ' ' . $s->get_short_url() . ' -->' . PHP_EOL);        
+}
+
+
 get_footer();

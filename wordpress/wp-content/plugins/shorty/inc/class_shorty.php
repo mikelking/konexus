@@ -12,35 +12,41 @@ class Shorty {
     const API_USERNAME = '';
     const REQUEST_FMT  = "%s?login=%s&apiKey=%s&longUrl=%s&format=json";
     
-    private $shorty_config;
+    private $payload;
     
     public $target_encoded_url;
     public $api_request;
     public $api_result;
-    public $shorty_result;
+    public $result;
+    public $http;
 
 
     public function __construct() {
-        $this->shorty_config = array(
+    
+        $this->http = new WP_Http;
+        
+        $this->payload = array(
             'api_username' => self::API_USERNAME,
             'api_key' => (defined('API_KEY')) ? API_KEY: self::API_KEY,
             'api_url' => (defined('API_USERNAME')) ? API_USERNAME: self::API_URL,
             'api_ssl' => self::API_SSL_URL,
             'cache_key' => self::CACHE_KEY
         );
-
+        $this->prepare_api_request();
+        $this->display_bitly_api_request();
+        $this->display_bitly_result();
     }
 
-    public function prepare_api_request($url) {
-        if (isset($url)) {
-            $this->target_encoded_url = urlencode($url);
-            $this->api_request = sprintf(
-                self::REQUEST_FMT, $this->shorty_config['api_ssl'], $this->shorty_config['api_username'], 
-                $this->shorty_config['api_key'], $this->target_encoded_url
-            );
-        } else {
-            die("I'm sorry you can not shorten nothing. Please enter a URL and try again.");
+    public function prepare_api_request($url = null) {
+        if (! isset($url)) {
+            $url = get_permalink();
         }
+        
+        $this->target_encoded_url = urlencode($url);
+        $this->api_request = sprintf(
+            self::REQUEST_FMT, $this->payload['api_ssl'], $this->payload['api_username'], 
+            $this->payload['api_key'], $this->target_encoded_url
+        );
     }
 
     public function display_bitly_api_request() {
@@ -55,7 +61,7 @@ class Shorty {
     public function display_bitly_result() {
         if($this->api_result){
             print("<!-- Shorty\n" . PHP_EOL);
-            var_dump($this->shorty_result);
+            var_dump($this->result);
             print($this->target_encoded_url);
             print("\n-->\n" . PHP_EOL);
         }
@@ -64,17 +70,17 @@ class Shorty {
     public function decode_bitly_result() {
         $output = json_decode($this->api_result);
         if (isset($output->{'data'}->{'hash'})) {
-            $this->shorty_result['url'] = $output->{'data'}->{'url'};
-            $this->shorty_result['hash'] = $output->{'data'}->{'hash'};
-            $this->shorty_result['global_hash'] = $output->{'data'}->{'global_hash'};
-            $this->shorty_result['long_url'] = $output->{'data'}->{'long_url'};
-            $this->shorty_result['new_hash'] = $output->{'data'}->{'new_hash'};
+            $this->result['url'] = $output->{'data'}->{'url'};
+            $this->result['hash'] = $output->{'data'}->{'hash'};
+            $this->result['global_hash'] = $output->{'data'}->{'global_hash'};
+            $this->result['long_url'] = $output->{'data'}->{'long_url'};
+            $this->result['new_hash'] = $output->{'data'}->{'new_hash'};
         }
 
     }
 
     public function get_short_url() {
-        return($this->shorty_result['url']);
+        return($this->result['url']);
     }
 
     public function bitly_get_request() {
