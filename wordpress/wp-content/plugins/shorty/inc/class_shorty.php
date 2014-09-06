@@ -50,13 +50,41 @@ class Shorty {
         }
 */
         
-        $this->display_payload();
+/*         $this->display_payload(); */
         $this->prepare_api_request();
         $this->display_bitly_api_request();
         $this->api_result = $this->http->request($this->api_request);
         $this->decode_bitly_result();
         $this->display_bitly_result();
     }
+
+        $this->headers = array(
+                                'Content-Type' => 'application/json',
+                                'Content-Length' => strlen($this->json_data),
+                                'Authorization' => Setup_Controller::$opt->mke_options['key'],
+                         );
+        
+        $this->get_pay_load();
+        $this->post_to_api_url();
+
+        //$this->decode_response_body();
+        // DBG $this->check_response();
+    }
+
+    public function get_pay_load() {
+        $this->pay_load = array(
+                            	'method' => 'POST',
+                            	'timeout' => 45,
+                            	'redirection' => 5,
+                            	'httpversion' => '1.1',
+                            	'blocking' => true,
+                            	'sslverify' => false,
+                            	'headers' => $this->headers,
+                            	'body' => $this->json_data,
+                            	'cookies' => array()
+                          );
+    }
+
 
     public function prepare_api_request($url = null) {
         if (! isset($url)) {
@@ -148,5 +176,8 @@ Array
     [long_url] => http://www.etsy.com/people/mikelking
     [new_hash] => 1
 )
+
+
+ { "data": [ ], "status_code": 500, "status_txt": "MISSING_ARG_ACCESS_TOKEN" }
 
 */
