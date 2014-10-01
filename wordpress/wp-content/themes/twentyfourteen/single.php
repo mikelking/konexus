@@ -7,7 +7,11 @@
  * @since Twenty Fourteen 1.0
  */
 
-get_header(); ?>
+get_header();
+Debug::print_serialized_wp_rewrite();
+Debug::print_wp_rewrite();
+
+?>
 
 	<div id="primary" class="content-area">
 		<div id="content" class="site-content" role="main">
