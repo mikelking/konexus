@@ -1,13 +1,13 @@
 <?php
 /*
-Plugin Name: Etsy Beacon System
-Description: Activation enables the Etsy Beacon Javascript in the theme header & footer. Simply instantiate the class in your theme, add an custom array of key pairs to override the default.
+Plugin Name: Beaconator
+Description: Activation enables a Javascript based beacon in the theme header & footer. Simply instantiate the class in your theme, add an custom array of key pairs to override the default.
 Author: Mikel King
 Version: 1.0
 */
 
-class Etsy_Beacon {
-    const BEACON_URL = 'http://bcn.etsy.com/beacon';
+class Beaconator {
+    const BEACON_URL = 'http://konex.us/beacon_catcher.php';
     const BEACON_COLLECTOR_URL = 'beacon_collector_base_url';
     const BEACON_ANALYTICS_ID = 'analytics_second_beacon';
 
@@ -71,9 +71,6 @@ class Etsy_Beacon {
         $the_blog_path = 'blog_en';
         if (class_exists('Advanced_Blog_Data')) {
            $abd = new Advanced_Blog_Data();
-        } elseif (file_exists(ETSY_WPLIB . DIRECTORY_SEPARATOR . 'advanced_blog_data.php')){
-           require(ETSY_WPLIB . DIRECTORY_SEPARATOR . 'advanced_blog_data.php');
-           $abd = new Advanced_Blog_Data();
         } else {
             return($the_blog_path);
         }
@@ -83,6 +80,43 @@ class Etsy_Beacon {
         return($the_blog_path);
     }
 
+    public function get_url_to_asset( $asset ) {
+        return( plugins_url($asset, __FILE__ ));
+    }
+
+    function get_beacon() {
+        $bcn = null;
+        $beacon_plugin = 'etsy-beacon-system/etsy-beacon-system.php';
+        if (is_plugin_active($beacon_plugin)) {
+            if (class_exists('Etsy_Beacon')) {
+                $bcn = new Etsy_Beacon();
+            } elseif (file_exists(PLUGIN_DIR . DIRECTORY_SEPARATOR . $beacon_plugin)){
+                require(PLUGIN_DIR . DIRECTORY_SEPARATOR . $beacon_plugin);
+                $bcn = new Etsy_Beacon();
+            }
+        } else {
+            add_action('wp_head', 'default_beacon_header', 100);
+            add_action('wp_footer', 'default_beacon_footer', 100);
+        }
+        return($bcn);
+    }
+
+    function get_blog_event_name() {
+        $deliminator = '/';
+        $the_blog_path = 'blog_en';
+        if (class_exists('Advanced_Blog_Data')) {
+            $abd = new Advanced_Blog_Data();
+        } elseif (file_exists(ETSY_WPLIB . DIRECTORY_SEPARATOR . 'advanced_blog_data.php')){
+            require(ETSY_WPLIB . DIRECTORY_SEPARATOR . 'advanced_blog_data.php');
+            $abd = new Advanced_Blog_Data();
+        } else {
+            return($the_blog_path);
+        }
+
+        $the_blog_path = str_replace($deliminator, '_', trim($abd->the_blog_path, $deliminator));
+
+        return($the_blog_path);
+    }
 }
 
-Etsy_Beacon::init();
+Beaconator::init();

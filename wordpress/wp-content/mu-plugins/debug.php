@@ -189,6 +189,16 @@ class Debug {
     	}
     }
 
+    public static function print_serialized_wp_rewrite() {
+        if (isset($_GET['debug']) && $_GET['debug'] === 'swprewrite' ) {
+            global $wp_rewrite;
+            print('<h2>WP Rewrite obj</h2>' . PHP_EOL);
+            print(serialize($wp_rewrite));
+            print('<h3>WP Rewrite obj</h3>' . PHP_EOL);
+            exit;
+        }
+    }
+
 }
 /*    
     if (isset($_SERVER['IS_PRINCESS'])) {
