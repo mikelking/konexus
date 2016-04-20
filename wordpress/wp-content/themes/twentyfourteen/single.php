@@ -7,11 +7,7 @@
  * @since Twenty Fourteen 1.0
  */
 
-get_header();
-Debug::print_serialized_wp_rewrite();
-Debug::print_wp_rewrite();
-
-?>
+get_header(); ?>
 
 	<div id="primary" class="content-area">
 		<div id="content" class="site-content" role="main">
@@ -41,12 +37,4 @@ Debug::print_wp_rewrite();
 <?php
 get_sidebar( 'content' );
 get_sidebar();
-
-if (class_exists('Shorty')) {
-    $s = new Shorty;
-/*     $url = get_permalink($post->ID); */
-    print('<!-- Shorty Social: ' . $post->post_title . ' ' . $s->get_short_url() . ' -->' . PHP_EOL);        
-}
-
-
 get_footer();
