@@ -1,3 +1,4 @@
 [submodule "mu-plugins"]
 	path = wordpress/wp-content/mu-plugins
 	url = https://github.com/mikelking/singleton_base.git
+    auto-update = yes
